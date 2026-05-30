@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roberto Alencar | Bio Link de Luxo</title>
+
+    <!-- Google Fonts Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS v4 Browser Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+      :root {
+        --color-brand-gold: #D4AF37;
+        --color-brand-gold-light: #F3E5AB;
+        --color-brand-gold-dark: #AA7C11;
+      }
+
+      body {
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      /* Padrão geométrico arquitetônico de alta fidelidade para o fundo */
+      .architecture-pattern {
+        background-image:
+          linear-gradient(30deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
+          linear-gradient(150deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
+          linear-gradient(30deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
+          linear-gradient(150deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
+          linear-gradient(60deg, #1c1c1c 25%, transparent 25.5%, transparent 75%, #1c1c1c 75.5%, #1c1c1c),
+          linear-gradient(60deg, #1c1c1c 25%, transparent 25.5%, transparent 75%, #1c1c1c 75.5%, #1c1c1c);
+        background-size: 80px 140px;
+      }
+
+      /* Barra de rolagem estilizada sob medida */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(212, 175, 55, 0.25);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(212, 175, 55, 0.5);
+      }
+
+      /* Efeito Glassmorphism refinado */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      /* Animação suave para o indicador ativo */
+      @keyframes soft-ping {
+        0% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+
+        50% {
+          transform: scale(1.4);
+          opacity: 0;
+        }
+
+        100% {
+          transform: scale(1);
+          opacity: 0;
+        }
+      }
+
+      .ping-element {
+        animation: soft-ping 2.5s infinite ease-out;
+      }
+
+      /* Transições de entrada suave */
+      .fade-in-slide {
+        animation: fadeInSlide 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      @keyframes fadeInSlide {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Microinterações nos botões de canais rápidos */
+      .action-item:hover i {
+        transform: scale(1.1) translateY(-2px);
+        color: var(--color-brand-gold-light);
+      }
+    </style>
+    <script type="text/javascript" src="./index.js" defer=""></script>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+
+  <body class="min-h-screen py-6 px-4 flex flex-col items-center justify-center relative bg-[#0F0F0F] text-neutral-200 overflow-x-hidden antialiased">
+
+    <!-- Camadas de Fundo (Gradients & Pattern Estilizado) -->
+    <div class="fixed inset-0 z-0 bg-[radial-gradient(circle_at_center,_#1A1A1A_0%,_#050505_100%)] pointer-events-none"></div>
+    <div class="fixed inset-0 z-0 opacity-20 mix-blend-overlay pointer-events-none" style="background-image: url('/src/assets/images/luxury_mansion_1780150323966.png'); background-size: cover; background-position: center; background-attachment: fixed;"></div>
+    <div class="architecture-pattern fixed inset-0 z-0 opacity-15 pointer-events-none"></div>
+
+    <!-- Botão Seletor de Modo (Discreto à esquerda no topo) -->
+    <div class="absolute top-4 left-4 z-40">
+      <button onclick="toggleViewMode()" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-black/60 hover:bg-black/95 text-white border border-white/10 backdrop-blur-md text-[11px] font-bold tracking-wider cursor-pointer transition-all active:scale-95 shadow-xl shadow-black/40" title="Alternar entre Visualização do Cliente e Painel de Leads">
+        <i class="fa-solid fa-user-tie text-[#D4AF37]" id="panel-toggle-icon"></i>
+        <span id="panel-toggle-text">PAINEL BROKER</span>
+        <span class="flex h-2 w-2 relative" id="unread-leads-ping" style="display: none;">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-80"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]"></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Botão de Compartilhar Card (À direita no topo) -->
+    <div class="absolute top-4 right-4 z-40" id="share-trigger-block">
+      <button onclick="openQRModal()" class="p-3.5 rounded-full bg-black/60 hover:bg-black/95 text-neutral-200 border border-white/10 backdrop-blur-md cursor-pointer transition-all active:scale-95 shadow-lg" title="Compartilhar Cartão Digital">
+        <i class="fa-solid fa-qrcode text-[#D4AF37]"></i>
+      </button>
+    </div>
+
+    <!-- Container Principal (Restrição de Largura Mobile) -->
+    <div class="w-full max-w-md my-8 relative z-10 transition-all duration-300" id="main-viewport">
+
+      <!-- CARTÃO PRINCIPAL DO CLIENTE (VISITANTE) -->
+      <div id="client-view-container" class="fade-in-slide w-full rounded-[2.5rem] glass-card p-6 shadow-2xl shadow-black/85 flex flex-col space-y-7 relative overflow-hidden">
+        <!-- Gradients decorativos internos para o Glassmorphism -->
+        <div class="absolute -top-16 -left-16 w-36 h-36 bg-[#D4AF37]/8 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-16 -right-16 w-40 h-40 bg-white/4 rounded-full blur-3xl"></div>
+
+        <!-- Perfil e Cabeçalho Superior -->
+        <div class="flex flex-col items-center text-center space-y-4 pt-4 relative">
+          <div class="relative">
+            <div class="w-32 h-32 rounded-full overflow-hidden p-1 shadow-2xl shadow-black/50" style="background: linear-gradient(45deg, #D4AF37, #FFFFFF)">
+              <div class="w-full h-full rounded-full overflow-hidden bg-neutral-900">
+                <img id="broker-profile-photo" src="/src/assets/images/broker_profile_1780150338119.png" alt="Roberto Alencar" class="w-full h-full object-cover select-none" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&amp;fit=crop&amp;w=256&amp;q=80'">
+              </div>
+            </div>
+            <!-- Indicador status online ativo -->
+            <span class="absolute bottom-1 right-2.5 bg-[#D4AF37] text-[9px] font-black text-neutral-950 px-2.5 py-0.5 rounded-full border border-neutral-950 tracking-wider flex items-center gap-1 uppercase shadow-md">
+              <span class="block h-1.5 w-1.5 rounded-full bg-neutral-950 relative">
+                <span class="ping-element absolute inset-0 rounded-full bg-neutral-950"></span>
+            </span>
+            Online
+            </span>
+          </div>
+
+          <div class="space-y-1.5">
+            <h1 class="text-2xl font-black text-white tracking-tight flex items-center justify-center gap-1.5">
+              Roberto Alencar <i class="fa-solid fa-sparkles text-[#D4AF37] text-sm"></i>
+            </h1>
+            <h2 class="text-[11px] font-bold text-[#D4AF37] tracking-widest uppercase">
+              Corretor de Imóveis de Luxo
+            </h2>
+            <span class="inline-block bg-white/5 border border-white/10 text-neutral-400 font-semibold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full mt-1.5">
+              CRECI 124.580-F
+            </span>
+          </div>
+
+          <p class="text-xs text-neutral-300 px-3.5 leading-relaxed font-normal">
+            "Transformando sonhos em endereços exclusivos com curadoria private de alto padrão."
+          </p>
+        </div>
+
+        <!-- Grade de Ações Rápidas (Canais de Atendimento) -->
+        <div class="space-y-3.5">
+          <span class="block text-[10px] font-black uppercase text-[#D4AF37] tracking-widest px-1 text-left">
+            Canais de Atendimento
+          </span>
+          <div class="grid grid-cols-2 gap-3" id="quick-actions-grid">
+
+            <!-- WhatsApp Link -->
+            <a id="whatsapp-link-btn" href="https://api.whatsapp.com/send?phone=5511998243737&amp;text=Olá Roberto, estou visitando o seu Cartão Digital Corporativo e gostaria de solicitar uma assessoria exclusiva em alto padrão." target="_blank" rel="noopener noreferrer" onclick="logClick('whatsapp')" class="action-item flex flex-col items-center justify-center text-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/20 hover:border-[#D4AF37] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group shadow-md">
+              <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-all duration-300">
+                <i class="fa-brands fa-whatsapp text-lg text-[#D4AF37] transition-all"></i>
+              </div>
+              <div>
+                <span class="block text-[11px] font-bold uppercase text-white tracking-wide">WhatsApp</span>
+                <span class="text-[9px] text-zinc-400 font-medium">Falar Agora</span>
+              </div>
+            </a>
+
+            <!-- Escritório/Mapa -->
+            <a href="https://waze.com/ul?q=Av+Brigadeiro+Faria+Lima+4500+Sao+Paulo" target="_blank" rel="noopener noreferrer" onclick="logClick('location')" class="action-item flex flex-col items-center justify-center text-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/20 hover:border-[#D4AF37] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group shadow-md">
+              <div class="p-2.5 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] group-hover:bg-[#D4AF37]/25 transition-all duration-300">
+                <i class="fa-solid fa-map-location-dot text-lg transition-all"></i>
+              </div>
+              <div>
+                <span class="block text-[11px] font-bold uppercase text-white tracking-wide">Escritório</span>
+                <span class="text-[9px] text-zinc-400 font-medium font-sans">Jardins, SP</span>
+              </div>
+            </a>
+
+            <!-- Email Corporativo -->
+            <a href="mailto:roberto@alancarluxury.com.br?subject=Assessoria de Imóveis de Altíssimo Padrão - Roberto Alencar" onclick="logClick('email')" class="action-item flex flex-col items-center justify-center text-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/20 hover:border-[#D4AF37] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group shadow-md">
+              <div class="p-2.5 rounded-xl bg-white/10 text-white group-hover:bg-white/15 transition-all duration-300">
+                <i class="fa-solid fa-envelope text-lg text-[#D4AF37] transition-all"></i>
+              </div>
+              <div>
+                <span class="block text-[11px] font-bold uppercase text-white tracking-wide">E-mail</span>
+                <span class="text-[9px] text-zinc-400 font-medium">Conectar</span>
+              </div>
+            </a>
+
+            <!-- Portfolio Web -->
+            <a href="https://alancarluxury.com.br" target="_blank" rel="noopener noreferrer" onclick="logClick('website')" class="action-item flex flex-col items-center justify-center text-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/20 hover:border-[#D4AF37] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group shadow-md">
+              <div class="p-2.5 rounded-xl bg-white/10 text-white group-hover:bg-white/15 transition-all duration-300">
+                <i class="fa-solid fa-globe text-lg text-[#D4AF37] transition-all"></i>
+              </div>
+              <div>
+                <span class="block text-[11px] font-bold uppercase text-white tracking-wide">Portfolio</span>
+                <span class="text-[9px] text-zinc-400 font-medium">Navegar</span>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Botão Principal de Download do vCard -->
+        <div class="pt-1">
+          <button onclick="generatevCard()" class="w-full relative flex items-center justify-center gap-3 py-4 rounded-2xl bg-[#D4AF37] hover:bg-[#AA7C11] text-neutral-950 font-black text-xs tracking-widest uppercase transition-all duration-300 transform active:scale-98 hover:shadow-xl hover:shadow-[#D4AF37]/20">
+            <i class="fa-solid fa-address-book text-sm"></i>
+            <span id="save-vcard-text">SALVAR NA AGENDA</span>
+            <span class="absolute right-4 w-2 h-2 rounded-full bg-neutral-950 ping-element"></span>
+          </button>
+        </div>
+
+        <!-- Oportunidade Destacada (Imóvel do Mês) -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center px-1">
+            <span class="block text-[10px] font-black uppercase text-[#D4AF37] tracking-widest">
+              Oportunidade do Mês
+            </span>
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-80"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+            </span>
+          </div>
+
+          <!-- Card do Imóvel -->
+          <div class="rounded-3xl overflow-hidden bg-black/45 border border-white/10 hover:border-[#D4AF37] transition-all duration-300 shadow-xl group select-none pb-4 relative">
+            <div class="h-40 relative overflow-hidden">
+              <img src="/src/assets/images/modern_estate_1780150353703.png" alt="Aura Penthouse" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-black/30"></div>
+
+              <!-- Tag do valor do imóvel -->
+              <div class="absolute bottom-3 right-3 py-1.5 px-3 rounded-xl bg-black/60 backdrop-blur-md border border-white/10">
+                <span class="text-xs font-black text-[#F3E5AB] tracking-tight">R$ 18.500.000</span>
+              </div>
+
+              <!-- Tipo do Imóvel -->
+              <div class="absolute top-3 left-3 py-0.5 px-2.5 rounded-full bg-[#D4AF37] text-neutral-950 text-[9px] font-black tracking-widest uppercase">
+                PENTHOUSE
+              </div>
+            </div>
+
+            <!-- Dados Descritivos -->
+            <div class="p-4 text-left space-y-2.5">
+              <div>
+                <h3 class="text-sm font-black text-white group-hover:text-[#D4AF37] transition-colors truncate">
+                  Aura Penthouse • Jardins
+                </h3>
+                <p class="text-[10px] text-zinc-400 mt-0.5 font-medium flex items-center gap-1.5">
+                  <i class="fa-solid fa-location-dot text-[#D4AF37]"></i> Jardins, São Paulo - SP
+                </p>
+              </div>
+
+              <p class="text-[11px] text-zinc-300 leading-relaxed line-clamp-2">
+                Uma impressionante cobertura duplex de altíssimo padrão com arquitetura minimalista de vanguarda e adega privativa integrada.
+              </p>
+
+              <!-- Rodapé do Card do Imóvel -->
+              <div class="flex justify-between items-center pt-2.5 border-t border-white/5">
+                <div class="flex items-center gap-2.5 text-[9px] text-zinc-400 font-bold uppercase tracking-wider">
+                  <span>640 m²</span>
+                  <span>•</span>
+                  <span>4 Suítes</span>
+                  <span>•</span>
+                  <span>5 Vagas</span>
+                </div>
+
+                <button onclick="openPropertyModal()" class="text-[11px] font-black text-[#D4AF37] group-hover:text-amber-300 flex items-center gap-1.5 cursor-pointer hover:underline">
+                  VER DETALHES <i class="fa-solid fa-expand text-[9px]"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Redes Sociais e Assinatura -->
+        <div class="pt-2 border-t border-white/5 space-y-4">
+          <div class="flex justify-center items-center gap-4 text-neutral-400">
+
+            <a href="https://instagram.com/robertoalencar.lux" target="_blank" rel="noopener noreferrer" onclick="logClick('instagram')" class="p-3 bg-white/5 rounded-full hover:bg-white/10 text-neutral-300 hover:text-[#D4AF37] transition-all duration-300 shadow-md" title="Instagram">
+              <i class="fa-brands fa-instagram text-base"></i>
+            </a>
+
+            <a href="https://linkedin.com/in/roberto-alencar-estates" target="_blank" rel="noopener noreferrer" onclick="logClick('linkedin')" class="p-3 bg-white/5 rounded-full hover:bg-white/10 text-neutral-300 hover:text-[#D4AF37] transition-all duration-300 shadow-md" title="LinkedIn">
+              <i class="fa-brands fa-linkedin-in text-base"></i>
+            </a>
+
+            <a href="https://facebook.com/robertoalencar.lux" target="_blank" rel="noopener noreferrer" onclick="logClick('facebook')" class="p-3 bg-white/5 rounded-full hover:bg-white/10 text-neutral-300 hover:text-[#D4AF37] transition-all duration-300 shadow-md" title="Facebook">
+              <i class="fa-brands fa-facebook-f text-base"></i>
+            </a>
+
+          </div>
+
+          <div class="text-center space-y-1">
+            <p class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-hotel text-[8px] text-[#D4AF37]/50"></i> ALENCAR LUXURIOUS ESTATES
+            </p>
+            <p class="text-[8px] text-zinc-600 tracking-wider uppercase font-medium">
+              © <span id="current-year">2026</span> • LUXURY EXCLUSIVITY CERTIFIED
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- COCKPIT BROKER / PAINEL ADMINISTRATIVO DE LEADS (CRM INTEGRADO) -->
+      <div id="broker-dashboard-container" class="w-full max-w-xl rounded-[2.5rem] bg-neutral-900/90 border border-[#D4AF37]/30 backdrop-blur-xl p-6 shadow-2xl relative overflow-hidden" style="display: none;">
+        <div class="absolute -top-16 -right-16 w-36 h-36 bg-[#D4AF37]/10 rounded-full blur-3xl"></div>
+
+        <!-- Cabeçalho Administrativo -->
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-white/5">
+          <div>
+            <h2 class="text-lg font-black text-white tracking-tight">Painel de Leads Exclusivo</h2>
+            <p class="text-xs text-neutral-400">Gestão e controle corporativo em tempo real</p>
+          </div>
+          <button onclick="toggleViewMode()" class="px-4 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-300 hover:text-white font-bold transition-all active:scale-95">
+            Voltar ao Cartão
+          </button>
+        </div>
+
+        <!-- Métricas Rápidas do CRM -->
+        <div class="grid grid-cols-3 gap-3.5 mb-6">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
+            <span class="block text-[9px] uppercase text-neutral-400 font-bold tracking-wider mb-2">Total de Leads</span>
+            <span class="text-2xl font-black text-white" id="stat-total-leads">0</span>
+          </div>
+
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
+            <span class="block text-[9px] uppercase text-neutral-400 font-bold tracking-wider mb-2">Fechamentos</span>
+            <span class="text-2xl font-black text-emerald-400" id="stat-closed-deals">0</span>
+          </div>
+
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
+            <span class="block text-[9px] uppercase text-neutral-400 font-bold tracking-wider mb-2">Comissão Est.</span>
+            <span class="text-base font-black text-[#D4AF37] truncate" id="stat-total-com">R$ 0</span>
+          </div>
+        </div>
+
+        <!-- Tabela / Cabeçalho e Botões de Controle -->
+        <div class="flex justify-between items-center pb-3">
+          <h4 class="font-extrabold text-white tracking-tight text-xs uppercase flex items-center gap-1.5">
+            <i class="fa-solid fa-users text-[#D4AF37]"></i> Leads Ativos (Banco de Dados Local)
+          </h4>
+
+          <div id="dashboard-actions-row" class="flex gap-2" style="display: none;">
+            <button onclick="exportDatabaseToCSV()" class="py-1.5 px-3 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold text-neutral-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer" title="Exportar Clientes em Planilha CSV">
+              <i class="fa-solid fa-file-csv"></i> CSV
+            </button>
+            <button onclick="clearCapturedLeads()" class="py-1.5 px-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-[10px] font-bold text-rose-400 hover:bg-rose-500/20 flex items-center gap-1.5 transition-colors cursor-pointer" title="Limpar todos os leads cadastrados">
+              <i class="fa-solid fa-trash-can"></i> Limpar
+            </button>
+          </div>
+        </div>
+
+        <!-- Feed do Feed de Leads Ativos -->
+        <div id="leads-list-feed" class="space-y-4 max-h-[380px] overflow-y-auto pr-1">
+          <!-- Alimentado de forma dinâmica por Javascript -->
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- MODAL 1: MEMORIAL EXCLUSIVO DO IMÓVEL (Ver Detalhes) -->
+    <div id="property-modal-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto hidden">
+      <div class="absolute inset-0" onclick="closePropertyModal()"></div>
+
+      <div class="relative w-full max-w-2xl overflow-hidden rounded-3xl bg-neutral-900 border border-white/10 shadow-2xl transition-all duration-300 my-8 text-neutral-200">
+        <!-- Close overlay button -->
+        <button onclick="closePropertyModal()" class="absolute top-4 right-4 z-10 p-3 rounded-full bg-black/60 text-white backdrop-blur-md hover:bg-black/95 transition-all border border-white/10 cursor-pointer">
+          <i class="fa-solid fa-xmark text-sm font-bold"></i>
+        </button>
+
+        <!-- Feature Cover da Mansão -->
+        <div class="relative h-64 md:h-80 w-full overflow-hidden">
+          <img src="/src/assets/images/modern_estate_1780150353703.png" id="modal-prop-image" alt="Aura Penthouse" class="w-full h-full object-cover select-none" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+          <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-black/30"></div>
+
+          <div class="absolute bottom-4 left-6 flex items-center gap-2">
+            <span class="bg-[#D4AF37] text-neutral-950 px-3 py-1 rounded-full text-[10px] font-black tracking-wider uppercase shadow-lg">
+              Oportunidade Private
+            </span>
+            <span class="bg-white/10 text-white backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-semibold border border-white/10 shadow-md">
+              Jardins, São Paulo
+            </span>
+          </div>
+        </div>
+
+        <!-- Corpo de Detalhes do Modal -->
+        <div class="p-6 md:p-8 space-y-6 max-h-[calc(100vh-16rem)] overflow-y-auto" id="modal-property-scroller">
+
+          <!-- Título e Preço -->
+          <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-3 pb-4 border-b border-white/5">
+            <div>
+              <h3 class="text-xl md:text-2xl font-black text-white tracking-tight">Aura Penthouse • Jardins</h3>
+              <p class="text-neutral-400 text-xs flex items-center gap-1.5 mt-2 font-semibold">
+                <i class="fa-solid fa-location-dot text-[#D4AF37]"></i> Jardins, São Paulo - SP
+              </p>
+            </div>
+            <div class="text-left md:text-right shrink-0">
+              <span class="block text-[9px] uppercase text-[#D4AF37] font-bold tracking-widest mb-1">Valor Consultoria</span>
+              <span class="text-2xl md:text-3xl font-black text-[#D4AF37] tracking-tight">R$ 18.500.000</span>
+            </div>
+          </div>
+
+          <!-- Atributos Principais -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 text-sm">
+            <div class="flex items-center gap-2.5">
+              <div class="p-2.5 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37]">
+                <i class="fa-solid fa-maximize"></i>
+              </div>
+              <div>
+                <span class="block text-[9px] text-neutral-400 uppercase font-bold tracking-wider">Área</span>
+                <span class="text-xs font-black text-white">640 m²</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <div class="p-2.5 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37]">
+                <i class="fa-solid fa-bed"></i>
+              </div>
+              <div>
+                <span class="block text-[9px] text-neutral-400 uppercase font-bold tracking-wider">Suítes</span>
+                <span class="text-xs font-black text-white">4 Master</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <div class="p-2.5 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37]">
+                <i class="fa-solid fa-shower"></i>
+              </div>
+              <div>
+                <span class="block text-[9px] text-neutral-400 uppercase font-bold tracking-wider">Banhos</span>
+                <span class="text-xs font-black text-white">6 banhos</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <div class="p-2.5 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37]">
+                <i class="fa-solid fa-car-rear"></i>
+              </div>
+              <div>
+                <span class="block text-[9px] text-neutral-400 uppercase font-bold tracking-wider">Vagas</span>
+                <span class="text-xs font-black text-white">5 carros</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Memorial Descritivo -->
+          <div class="space-y-2">
+            <h4 class="text-xs uppercase tracking-widest font-extrabold text-[#D4AF37] flex items-center gap-2">
+              <i class="fa-solid fa-hotel"></i> Memorial &amp; Arquitetura Exclusiva
+            </h4>
+            <p class="text-xs leading-relaxed text-zinc-300 font-normal">
+              Uma impressionante cobertura residencial duplex de grife internacional. Com arquitetura moderna de contornos minimalistas e vanguarda, o imóvel dispõe de adega gourmet privativa climatizada para 120 garrafas, spa com piscina privativa suspensa com borda infinita totalmente integrada ao living social e com vista 360° definitiva para o skyline verde dos Jardins. Equipada integralmente com automação residencial inteligente programável Control 4.
+            </p>
+          </div>
+
+          <!-- Diferenciais do Imóvel -->
+          <div class="space-y-3">
+            <h4 class="text-xs uppercase tracking-widest font-extrabold text-[#D4AF37] flex items-center gap-2">
+              <i class="fa-solid fa-medal"></i> Diferenciais Oferecidos
+            </h4>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="text-[10px] bg-[#D4AF37]/10 text-[#F3E5AB] px-3 py-1.5 rounded-xl font-bold border border-[#D4AF37]/20 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check text-[#D4AF37]"></i> Borda Infinita Suspensa
+              </span>
+              <span class="text-[10px] bg-[#D4AF37]/10 text-[#F3E5AB] px-3 py-1.5 rounded-xl font-bold border border-[#D4AF37]/20 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check text-[#D4AF37]"></i> Adega Climatizada 120 Gf
+              </span>
+              <span class="text-[10px] bg-[#D4AF37]/10 text-[#F3E5AB] px-3 py-1.5 rounded-xl font-bold border border-[#D4AF37]/20 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check text-[#D4AF37]"></i> Automação Control 4
+              </span>
+              <span class="text-[10px] bg-[#D4AF37]/10 text-[#F3E5AB] px-3 py-1.5 rounded-xl font-bold border border-[#D4AF37]/20 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check text-[#D4AF37]"></i> Elevador Privativo Codificado
+              </span>
+              <span class="text-[10px] bg-[#D4AF37]/10 text-[#F3E5AB] px-3 py-1.5 rounded-xl font-bold border border-[#D4AF37]/20 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check text-[#D4AF37]"></i> Entrada Facial Ativa
+              </span>
+            </div>
+          </div>
+
+          <!-- Form de Captura de Informações / Lead -->
+          <div class="pt-6 border-t border-white/5 space-y-4">
+            <div class="bg-gradient-to-br from-neutral-800/80 to-neutral-900 border border-[#D4AF37]/20 rounded-3xl p-6 md:p-8 space-y-5 shadow-xl relative overflow-hidden">
+              <div class="absolute -top-12 -right-12 w-32 h-32 bg-[#D4AF37]/5 rounded-full blur-2xl"></div>
+
+              <div id="capture-form-body">
+                <h4 class="text-sm font-extrabold text-white tracking-tight flex items-center gap-2 mb-1.5 uppercase">
+                  <i class="fa-solid fa-handshake text-[#D4AF37]"></i> Solicitar Informações com Sigilo
+                </h4>
+                <p class="text-[11px] text-zinc-400 mb-4 font-normal">
+                  Inscreva-se abaixo para ter um atendimento exclusivo VIP e agendar sua visita privativa.
+                </p>
+
+                <form id="lead-form-element" onsubmit="handleLeadRegistration(event)" class="space-y-4 text-left">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-[9px] uppercase font-bold text-neutral-400 mb-1.5 tracking-wider">Nome Completo *</label>
+                      <input type="text" id="lead-name" required="" placeholder="Ex: Dr. Roberto Mendes" class="w-full px-4 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white placeholder-neutral-500 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors">
+                    </div>
+                    <div>
+                      <label class="block text-[9px] uppercase font-bold text-neutral-400 mb-1.5 tracking-wider">Telefone / WhatsApp *</label>
+                      <input type="tel" id="lead-phone" required="" placeholder="Ex: (11) 99999-9999" class="w-full px-4 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white placeholder-neutral-500 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors">
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-[9px] uppercase font-bold text-neutral-400 mb-1.5 tracking-wider">E-mail Corporativo *</label>
+                      <input type="email" id="lead-email" required="" placeholder="Ex: r.mendes@private.com" class="w-full px-4 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white placeholder-neutral-500 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors">
+                    </div>
+                    <div>
+                      <label class="block text-[9px] uppercase font-bold text-neutral-400 mb-1.5 tracking-wider">Previsão de Ticket Médio</label>
+                      <select id="lead-budget" class="w-full px-4 py-2.5 rounded-xl bg-neutral-900 border border-white/10 text-white text-xs focus:outline-none focus:border-[#D4AF37] transition-colors">
+                        <option value="R$ 3M - R$ 5M">R$ 3M - R$ 5M</option>
+                        <option value="R$ 5M - R$ 10M" selected="">R$ 5M - R$ 10M</option>
+                        <option value="Acima de R$ 10M">Acima de R$ 10M</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-[9px] uppercase font-bold text-neutral-400 mb-1.5 tracking-wider">Mensagem Particular</label>
+                    <textarea id="lead-message" rows="2" placeholder="Gostaria de agendar uma reunião particular..." class="w-full px-4 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white placeholder-neutral-500 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors resize-none"></textarea>
+                  </div>
+
+                  <button type="submit" id="submit-form-btn" class="w-full py-3.5 rounded-xl bg-[#D4AF37] hover:bg-[#AA7C11] text-neutral-950 font-black text-xs tracking-widest uppercase transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer hover:shadow-lg hover:shadow-[#D4AF37]/10">
+                    SOLICITAR ASSESSORIA PRIVATE VIA WHATSAPP
+                  </button>
+                </form>
+              </div>
+
+              <!-- Painel de Redirecionamento com Sucesso -->
+              <div id="capture-success-panel" class="hidden text-center py-6 space-y-4">
+                <div class="w-16 h-16 bg-[#D4AF37]/20 border border-[#D4AF37] rounded-full flex items-center justify-center mx-auto text-[#D4AF37] animate-bounce">
+                  <i class="fa-solid fa-circle-check text-2xl"></i>
+                </div>
+                <div>
+                  <h4 class="text-base font-extrabold text-white">Solicitação Recebida com Sucesso!</h4>
+                  <p class="text-xs text-neutral-400 max-w-sm mx-auto mt-1 leading-relaxed">
+                    Você está sendo redirecionado para o atendimento exclusivo no WhatsApp do corretor Roberto Alencar para receber o memorial descritivo...
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- MODAL 2: QR CODE DE COMPARTILHAMENTO -->
+    <div id="qr-modal-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+      <div class="absolute inset-0" onclick="closeQRModal()"></div>
+
+      <div class="relative w-full max-w-xs overflow-hidden rounded-3xl bg-neutral-900 border border-white/10 p-6 text-center shadow-2xl backdrop-blur-xl">
+
+        <!-- Cabeçalho -->
+        <div class="flex justify-between items-center mb-6">
+          <span class="text-white font-bold flex items-center gap-2 text-xs tracking-widest uppercase">
+            <i class="fa-solid fa-share-nodes text-[#D4AF37]"></i> Compartilhar
+          </span>
+          <button onclick="closeQRModal()" class="p-1.5 rounded-full bg-white/5 text-neutral-400 hover:text-white transition-colors cursor-pointer">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Matriz Simulação de QR Code Elegante com Moldura Dourada -->
+        <div class="mx-auto my-4 p-4 rounded-2xl bg-white flex flex-col items-center justify-center w-48 h-48 shadow-xl border-4 border-[#D4AF37]">
+          <svg class="w-full h-full text-neutral-900" viewBox="0 0 100 100">
+            <!-- Âncoras -->
+            <rect x="5" y="5" width="25" height="25" fill="currentColor" rx="2"></rect>
+            <rect x="10" y="10" width="15" height="15" fill="white" rx="1"></rect>
+            <rect x="13" y="13" width="9" height="9" fill="currentColor" rx="1"></rect>
+
+            <rect x="70" y="5" width="25" height="25" fill="currentColor" rx="2"></rect>
+            <rect x="75" y="10" width="15" height="15" fill="white" rx="1"></rect>
+            <rect x="78" y="13" width="9" height="9" fill="currentColor" rx="1"></rect>
+
+            <rect x="5" y="70" width="25" height="25" fill="currentColor" rx="2"></rect>
+            <rect x="10" y="75" width="15" height="15" fill="white" rx="1"></rect>
+            <rect x="13" y="78" width="9" height="9" fill="currentColor" rx="1"></rect>
+
+            <!-- Dados/Pontos Aleatórios -->
+            <circle cx="50" cy="15" r="4" fill="currentColor"></circle>
+            <rect x="42" y="24" width="8" height="4" fill="currentColor" rx="1"></rect>
+            <rect x="58" y="20" width="4" height="12" fill="currentColor" rx="1"></rect>
+
+            <rect x="38" y="38" width="24" height="24" fill="currentColor" rx="2"></rect>
+            <rect x="43" y="43" width="14" height="14" fill="white" rx="1"></rect>
+            <!-- Núcleo Dourado Decorativo -->
+            <rect x="47" y="47" width="6" height="6" fill="#D4AF37"></rect>
+
+            <circle cx="15" cy="50" r="3" fill="currentColor"></circle>
+            <circle cx="22" cy="48" r="4" fill="currentColor"></circle>
+            <rect x="12" y="56" width="12" height="4" fill="currentColor" rx="1"></rect>
+
+            <circle cx="85" cy="50" r="4" fill="currentColor"></circle>
+            <circle cx="78" cy="45" r="3" fill="currentColor"></circle>
+            <rect x="76" y="52" width="12" height="4" fill="currentColor" rx="1"></rect>
+
+            <rect x="38" y="74" width="8" height="16" fill="currentColor" rx="1"></rect>
+            <rect x="52" y="80" width="12" height="6" fill="currentColor" rx="1"></rect>
+            <rect x="48" y="70" width="16" height="4" fill="currentColor" rx="1"></rect>
+
+            <rect x="72" y="72" width="8" height="8" fill="currentColor" rx="1"></rect>
+            <rect x="86" y="76" width="6" height="12" fill="currentColor" rx="1"></rect>
+            <rect x="72" y="86" width="18" height="4" fill="currentColor" rx="1"></rect>
+          </svg>
+        </div>
+
+        <p class="text-white text-sm font-bold mb-1">Escaneie o QR Code</p>
+        <p class="text-neutral-400 text-[10px] px-3 leading-relaxed mb-6">
+          Aponte a câmera do dispositivo do seu cliente para transferir este bio link imediatamente.
+        </p>
+
+        <!-- Ação de cópia rápida -->
+        <div class="flex gap-2 text-left">
+          <input type="text" id="share-link-input" readonly="" value="#" class="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] text-zinc-300 focus:outline-none">
+          <button onclick="copyShareLink()" id="copy-link-btn" class="px-4 py-2 rounded-xl bg-[#D4AF37] hover:bg-[#AA7C11] text-neutral-950 text-[10px] font-black tracking-wider uppercase transition-all duration-300 shrink-0 cursor-pointer">
+            Copiar
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- BLOCO DE LOGÍSTICA / Lógica JavaScript Vanilla de Alta Performance -->
+    <script>
+      // 1. Definições Iniciais do Banco de Dados Local
+      let currentViewMode = "client"; // Opções: "client" | "broker"
+      let leads = [];
+      const brokerPhoneRaw = "5511998243737";
+
+      // Insere o ano atual de forma dinâmica
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+
+      // Atribui a URL ativa no input para cópia imediata
+      document.getElementById('share-link-input').value = window.location.href;
+
+      // Inicia os Leads armazenados no navegador
+      function loadLeads() {
+        try {
+          const saved = localStorage.getItem("luxury_leads");
+          leads = saved ? JSON.parse(saved) : [];
+        } catch (e) {
+          leads = [];
+        }
+        updateDashboardView();
+      }
+
+      // Persiste Leads no Navegador
+      function saveLeads() {
+        localStorage.setItem("luxury_leads", JSON.stringify(leads));
+        updateDashboardView();
+      }
+
+      // Rastreador simples métrico de cliques local
+      function logClick(actionType) {
+        try {
+          let count = parseInt(localStorage.getItem("luxury_clicks") || "142");
+          count += 1;
+          localStorage.setItem("luxury_clicks", count.toString());
+          console.log(`Métrica rastreada: ${actionType} (Total de interações: ${count})`);
+        } catch (e) {}
+      }
+
+      // Gera e processa vCard diretamente para os contatos rápidos do celular
+      function generatevCard() {
+        logClick('vcard_download');
+
+        const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Roberto Alencar | Alencar Luxurious Estates
+ORG:Alencar Luxurious Estates
+TITLE:Corretor de Imóveis de Luxo (Alto Padrão)
+TEL;TYPE=CELL,VOICE;VALUE=uri:tel:+5511998243737
+EMAIL;TYPE=PREF,INTERNET:roberto@alancarluxury.com.br
+URL:https://alancarluxury.com.br
+ADR;TYPE=WORK,POSTAL,PARCEL:;;Av. Brigadeiro Faria Lima, 4500 - Jardins;São Paulo;SP;01451-001;Brasil
+NOTE:CRECI 124.580-F. Curadoria particular e consultoria para propriedades premium e de alto padrão nos Jardins e Itaim Bibi.
+END:VCARD`;
+
+        const blob = new Blob([vcard], {
+          type: "text/vcard;charset=utf-8"
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "roberto_alencar_broker.vcf");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Feedback visual no botão
+        const btnText = document.getElementById('save-vcard-text');
+        btnText.textContent = 'CONTATO SALVO!';
+        setTimeout(() => {
+          btnText.textContent = 'SALVAR NA AGENDA';
+        }, 3000);
+      }
+
+      // Gatilhos do Modal de Imóveis
+      function openPropertyModal() {
+        logClick('prop_detail_load');
+        const modal = document.getElementById('property-modal-overlay');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closePropertyModal() {
+        const modal = document.getElementById('property-modal-overlay');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+
+        // Reseta formulários de captura interna
+        document.getElementById('capture-form-body').classList.remove('hidden');
+        document.getElementById('capture-success-panel').classList.add('hidden');
+        document.getElementById('lead-form-element').reset();
+      }
+
+      // Gatilhos do Modal de Compartilhamento (QR Code)
+      function openQRModal() {
+        logClick('qr_share_load');
+        const modal = document.getElementById('qr-modal-overlay');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeQRModal() {
+        const modal = document.getElementById('qr-modal-overlay');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      // Copiar link rápido
+      function copyShareLink() {
+        const input = document.getElementById('share-link-input');
+        input.select();
+        input.setSelectionRange(0, 99999);
+
+        try {
+          navigator.clipboard.writeText(input.value);
+          const btn = document.getElementById('copy-link-btn');
+          btn.textContent = 'COPIADO!';
+          btn.classList.add('bg-white', 'text-neutral-900');
+          setTimeout(() => {
+            btn.textContent = 'COPIAR';
+            btn.classList.remove('bg-white', 'text-neutral-900');
+          }, 2000);
+        } catch (err) {
+          alert('Link copiado: ' + input.value);
+        }
+      }
+
+      // Efetua o registro de leads e simula o banco de dados CRM
+      function handleLeadRegistration(event) {
+        event.preventDefault();
+
+        const nameVal = document.getElementById('lead-name').value;
+        const phoneVal = document.getElementById('lead-phone').value;
+        const emailVal = document.getElementById('lead-email').value;
+        const budgetVal = document.getElementById('lead-budget').value;
+        let messageVal = document.getElementById('lead-message').value;
+
+        if (!nameVal || !phoneVal || !emailVal) {
+          alert('Por favor, preencha todos os campos obrigatórios.');
+          return;
+        }
+
+        if (!messageVal) {
+          messageVal = `Solicitação premium de agendamento de memorial para o imóvel Aura Penthouse Jardins.`;
+        }
+
+        // Criando lead
+        const newLead = {
+          id: 'lead_' + Date.now(),
+          name: nameVal,
+          phone: phoneVal,
+          email: emailVal,
+          budget: budgetVal,
+          message: messageVal,
+          propertyTitle: 'Aura Penthouse • Jardins',
+          timestamp: new Date().toLocaleString('pt-BR')
+        };
+
+        leads.unshift(newLead);
+        saveLeads();
+
+        // Feedbacks visuais ativos
+        document.getElementById('capture-form-body').classList.add('hidden');
+        document.getElementById('capture-success-panel').classList.remove('hidden');
+
+        // Layout de WhatsApp com decodificação
+        const rawMessageText = `Olá Roberto! Me chamo *${nameVal}*.\n\nEstou visualizando seu *Cartão de Visita Digital* e gostaria de informações sobre a oportunidade:\n🏢 *Aura Penthouse • Jardins*\n📍 Localização: *Jardins, São Paulo*\n\nMeus dados de contato:\n✉️ E-mail: ${emailVal}\n📱 Telefone: ${phoneVal}\n\n"${messageVal}"`;
+        const encodedParams = encodeURIComponent(rawMessageText);
+        const sendUrl = `https://api.whatsapp.com/send?phone=${brokerPhoneRaw}&text=${encodedParams}`;
+
+        // Redireciona de forma autônoma após a conclusão
+        setTimeout(() => {
+          closePropertyModal();
+          window.open(sendUrl, '_blank', 'noopener,noreferrer');
+        }, 1500);
+      }
+
+      // Comuta os painéis (Visualização Cliente versus CRM Leads)
+      function toggleViewMode() {
+        const clientSec = document.getElementById('client-view-container');
+        const brokerSec = document.getElementById('broker-dashboard-container');
+        const toggleIcon = document.getElementById('panel-toggle-icon');
+        const toggleText = document.getElementById('panel-toggle-text');
+
+        if (currentViewMode === "client") {
+          currentViewMode = "broker";
+          clientSec.style.display = "none";
+          brokerSec.style.display = "block";
+
+          toggleText.textContent = "VER CARTÃO";
+          toggleIcon.className = "fa-solid fa-address-card text-[#D4AF37]";
+        } else {
+          currentViewMode = "client";
+          clientSec.style.display = "flex";
+          brokerSec.style.display = "none";
+
+          toggleText.textContent = "PAINEL BROKER";
+          toggleIcon.className = "fa-solid fa-user-tie text-[#D4AF37]";
+        }
+
+        logClick(`view_mode_${currentViewMode}`);
+        updateDashboardView();
+      }
+
+      // Atualiza painel CRM com métricas e lista de e-mails/dados
+      function updateDashboardView() {
+        const totalCount = leads.length;
+
+        // Identifica negócios fechados para simulação
+        let statuses = {};
+        try {
+          statuses = JSON.parse(localStorage.getItem("luxury_leads_statuses") || "{}");
+        } catch (e) {}
+
+        const closedDeals = Object.values(statuses).filter(status => status === "Negócio Fechado").length;
+        const totalCommissionVal = closedDeals * 180000; // R$ 180.000,00 de comissão simulada por venda
+
+        document.getElementById('stat-total-leads').textContent = totalCount;
+        document.getElementById('stat-closed-deals').textContent = closedDeals;
+
+        const formattedComm = new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+          maximumFractionDigits: 0
+        }).format(totalCommissionVal);
+        document.getElementById('stat-total-com').textContent = formattedComm;
+
+        // Ativa controles
+        const actionRow = document.getElementById('dashboard-actions-row');
+        if (totalCount > 0) {
+          actionRow.style.display = 'flex';
+          document.getElementById('unread-leads-ping').style.display = 'inline-flex';
+        } else {
+          actionRow.style.display = 'none';
+          document.getElementById('unread-leads-ping').style.display = 'none';
+        }
+
+        const feedList = document.getElementById('leads-list-feed');
+        feedList.innerHTML = '';
+
+        if (totalCount === 0) {
+          feedList.innerHTML = `
+            <div class="bg-white/5 border border-dashed border-white/10 rounded-3xl p-10 text-center space-y-3">
+              <div class="w-11 h-11 rounded-2xl bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center mx-auto">
+                <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+              </div>
+              <div>
+                <p class="text-[13px] font-bold text-white">Nenhum Lead Registrado Ainda</p>
+                <p class="text-[11px] text-neutral-400 max-w-xs mx-auto mt-1 leading-relaxed">
+                  Os cadastros dos clientes que preencherem o formulário "Ver Detalhes" serão gravados de forma persistente e exibidos aqui instantaneamente para gestão.
+                </p>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        // Constrói linhas dinamicamente no DOM
+        leads.forEach(lead => {
+          const leadStatus = statuses[lead.id] || "Novo";
+
+          let colorStyle = "bg-sky-500/10 text-sky-400 border border-sky-500/20";
+          if (leadStatus === "Em Atendimento") {
+            colorStyle = "bg-amber-500/10 text-amber-400 border border-amber-500/20";
+          } else if (leadStatus === "Visita Agendada") {
+            colorStyle = "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20";
+          } else if (leadStatus === "Negócio Fechado") {
+            colorStyle = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+          }
+
+          const leadCard = document.createElement('div');
+          leadCard.className = "bg-neutral-800/60 border border-white/5 hover:border-[#D4AF37]/30 rounded-2xl p-4.5 space-y-4 shadow-md transition-all duration-300 relative overflow-hidden group";
+
+          leadCard.innerHTML = `
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-left">
+              <div class="space-y-1">
+                <p class="text-sm font-extrabold text-white group-hover:text-[#D4AF37] transition-colors">${lead.name}</p>
+                <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[10px] text-zinc-400 font-semibold uppercase tracking-wider">
+                  <span class="flex items-center gap-1"><i class="fa-solid fa-envelope text-[#D4AF37]"></i> ${lead.email}</span>
+                  <span>•</span>
+                  <span class="flex items-center gap-1"><i class="fa-solid fa-clock text-[#D4AF37]"></i> ${lead.timestamp}</span>
+                </div>
+              </div>
+
+              <!-- Comutador do Status do CRM corporativo -->
+              <div class="flex items-center justify-between sm:justify-end gap-2 shrink-0">
+                <select
+                  onchange="updateLeadStatus('${lead.id}', this.value)"
+                  class="text-[10px] px-2.5 py-1 rounded-lg font-black tracking-wider uppercase bg-neutral-900 border focus:outline-none transition-all cursor-pointer ${colorStyle}"
+                >
+                  <option value="Novo" ${leadStatus === 'Novo' ? 'selected' : ''}>Novo</option>
+                  <option value="Em Atendimento" ${leadStatus === 'Em Atendimento' ? 'selected' : ''}>Em Atendimento</option>
+                  <option value="Visita Agendada" ${leadStatus === 'Visita Agendada' ? 'selected' : ''}>Visita Agendada</option>
+                  <option value="Negócio Fechado" ${leadStatus === 'Negócio Fechado' ? 'selected' : ''}>Negócio Fechado</option>
+                </select>
+
+                <!-- Ativa contato direto via telefone celular/WhatsApp -->
+                <a
+                  href="https://api.whatsapp.com/send?phone=${lead.phone.replace(/\D/g, '')}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="p-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition-colors"
+                  title="Contatar no WhatsApp"
+                >
+                  <i class="fa-solid fa-phone text-xs"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-black/20 border border-white/5 space-y-1.5 text-left text-xs leading-relaxed">
+              <p class="text-white font-extrabold text-[10px] uppercase tracking-wider flex items-center gap-1">
+                <i class="fa-solid fa-medal text-[#D4AF37]"></i> Interesse: <span class="text-[#D4AF37]">${lead.propertyTitle}</span>
+              </p>
+              <p class="text-zinc-300 font-semibold mb-1">Previsão de Budget: <span class="text-white font-black">${lead.budget}</span></p>
+              <p class="text-neutral-400 font-medium italic">"${lead.message}"</p>
+            </div>
+          `;
+
+          feedList.appendChild(leadCard);
+        });
+      }
+
+      // Modifica status do Lead
+      function updateLeadStatus(leadId, value) {
+        let statuses = {};
+        try {
+          statuses = JSON.parse(localStorage.getItem("luxury_leads_statuses") || "{}");
+        } catch (e) {}
+
+        statuses[leadId] = value;
+        localStorage.setItem("luxury_leads_statuses", JSON.stringify(statuses));
+        updateDashboardView();
+      }
+
+      // Deleta dados localmente
+      function clearCapturedLeads() {
+        if (confirm("Deseja realmente apagar todo o histórico de leads local?")) {
+          leads = [];
+          localStorage.removeItem("luxury_leads_statuses");
+          saveLeads();
+        }
+      }
+
+      // Exporta de forma nativa e limpa o banco de Leads em formato CSV
+      function exportDatabaseToCSV() {
+        if (leads.length === 0) return;
+
+        let statuses = {};
+        try {
+          statuses = JSON.parse(localStorage.getItem("luxury_leads_statuses") || "{}");
+        } catch (e) {}
+
+        const headers = ["ID", "Nome", "E-mail", "Telefone", "Ticket Medio", "Mensagem", "Imovel de Interesse", "Data/Hora", "Status"];
+        const rows = leads.map((lead) => [
+          lead.id,
+          `"${lead.name.replace(/"/g, '""')}"`,
+          lead.email,
+          lead.phone,
+          lead.budget,
+          `"${lead.message.replace(/"/g, '""')}"`,
+          `"${lead.propertyTitle}"`,
+          lead.timestamp,
+          statuses[lead.id] || "Novo",
+        ]);
+
+        const csvContent = "data:text/csv;charset=utf-8,\uFEFF" +
+          [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `Clientes_Especiais_Roberto_Alencar_${new Date().toISOString().slice(0, 10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // Carregamento Inicial do Banco
+      window.onload = function() {
+        loadLeads();
+      };
+    </script>
+
+  </body>
+
+</html>
